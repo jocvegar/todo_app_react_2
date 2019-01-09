@@ -1,25 +1,67 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      message: "hola Jose Vega",
+      newTodo: '',
+      todos: [],
+    };
+    this.formSubmit = this.formSubmit.bind(this);
+  }
+
+  formSubmit(event) {
+    event.preventDefault();
+    // console.log(this.state.newTodo);
+    this.setState({
+      newTodo: '',
+      todos: [...this.state.todos, {
+        title: this.state.newTodo,
+        done: false
+      }]
+    });
+  }
+
+  newTodoChange(event) {
+    console.log(event.target.value);
+    this.setState({
+      newTodo: event.target.value
+    });
+  }
+
+  toggleTodoDone(event) {
+
+  }
+
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+        <h1>{this.state.message}!!</h1>
+        <form onSubmit={this.formSubmit}>
+          <label htmlFor="newTodo">New ToDo</label>
+          <input
+            type="text"
+            id="newTodo"
+            name="newTodo"
+            value={this.state.newTodo}
+            onChange={(event) => this.newTodoChange(event)} />
+          <button type="submit">Add ToDo</button>
+        </form>
+        <ul>
+          {this.state.todos.map((todo, index) => {
+            return (
+              <li key={todo.title}>
+                <input
+                  type="checkbox"
+                  onChange={(event) => this.toggleTodoDone(event, index)} />
+                {todo.title}
+              </li>
+            );
+          })}
+        </ul>
       </div>
     );
   }
