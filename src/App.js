@@ -32,8 +32,37 @@ class App extends Component {
     });
   }
 
-  toggleTodoDone(event) {
+  toggleTodoDone(event, index) {
+    const todos = [...this.state.todos];
+    todos[index] = {...todos[index]};
+    todos[index].done = event.target.checked;
 
+    this.setState({
+      todos
+    });
+  }
+
+  removeTodo(index) {
+    const todos = [...this.state.todos]
+    todos.splice(index, 1);
+
+    this.setState({
+      todos
+    });
+  }
+
+  allDone() {
+    const todos = this.state.todos.map((todo) => {
+      return {
+        // ...todo, use this or
+        title: todo.title,
+        done: true
+      };
+    });
+
+    this.setState({
+      todos
+    })
   }
 
   render() {
@@ -50,14 +79,19 @@ class App extends Component {
             onChange={(event) => this.newTodoChange(event)} />
           <button type="submit">Add ToDo</button>
         </form>
+        <button onClick={() => this.allDone()} >All Done</button>
         <ul>
           {this.state.todos.map((todo, index) => {
             return (
               <li key={todo.title}>
                 <input
                   type="checkbox"
+                  checked={todo.done}
                   onChange={(event) => this.toggleTodoDone(event, index)} />
-                {todo.title}
+                <span style={{ textDecoration: todo.done ? 'line-through' : 'inherit' }}>
+                  {todo.title}
+                </span>
+                <button onClick={() => this.removeTodo(index)} >Remove</button>
               </li>
             );
           })}
