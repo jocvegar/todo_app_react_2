@@ -4,6 +4,7 @@
   "private": true,
   "homepage": "https://jocvegar.github.io/todo_app_react_2/",
   "dependencies": {
+    "gh-pages": "^2.0.1",
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
     "react-scripts": "2.1.3"
