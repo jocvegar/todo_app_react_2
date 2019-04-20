@@ -8,7 +8,7 @@ class App extends Component {
     super(props);
 
     this.state = {
-      message: "hola Jose Vega",
+      message: "Jose Vega's ToDo",
       newTodo: '',
       todos: [],
     };
@@ -75,7 +75,9 @@ class App extends Component {
           formSubmit={this.formSubmit.bind(this)}
           newTodoChange={this.newTodoChange.bind(this)}
           newTodo={this.state.newTodo} />
-        <button onClick={() => this.allDone()} >All Done</button>
+        <button
+          onClick={() => this.allDone()}
+          className="allDone">All Done</button>
         <TodoList
           todos={this.state.todos}
           toggleTodoDone={this.toggleTodoDone.bind(this)}
